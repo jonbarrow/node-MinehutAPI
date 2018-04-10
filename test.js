@@ -2,6 +2,13 @@ const MinehutAPI = require('./src/minehut');
 const Minehut = new MinehutAPI();
 
 (async () => {
+
+	console.log('Grabbing user data for user `Ninventoo`');
+	const user_data = await Minehut.userForumData('Ninventoo');
+	console.log(user_data);
+
+	console.log('******BEGINNING SERVER MANAGMENT******');
+
 	console.log('Logging into Minehut control panel...');
 	await Minehut.getLoginSession('email', 'password');
 	/*
