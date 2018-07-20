@@ -1,6 +1,9 @@
 const got = require('got');
 const MinehutServer = require('./server');
 
+const API_BASE = 'https://pocket.minehut.com';
+const GRAPHQL_API_BASE = 'https://api.forums.gg';
+
 const GRAPHQL_COMMUNITY = '5ac29432e0b76e66674e0a59';
 const GRAPHQL_USER_QUERY = {
 	operationName: 'user',
@@ -19,7 +22,7 @@ class MinehutAPI {
 
 	async getLoginSession(email, password) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/users/login', {
+			const request = await got.post(`${API_BASE}/users/login`, {
 				headers: {
 					'content-type': 'application/json'
 				},
@@ -48,7 +51,7 @@ class MinehutAPI {
 
 	async ghostLogin(token) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/users/ghost_login', {
+			const request = await got.post(`${API_BASE}/users/ghost_login`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': token
@@ -81,9 +84,14 @@ class MinehutAPI {
 		return new MinehutServer(id, this.session);
 	}
 
-	async servers() {
+	async getServer(id, byName) {
+		let request_url = `${API_BASE}/server/${id}`
+		if (byName) {
+			request_url = `${request_url}?byName=true`
+		}
+
 		try {
-			const request = await got('https://pocket.minehut.com/servers');
+			const request = await got(request_url);
 
 			const servers = JSON.parse(request.body);
 
@@ -101,9 +109,9 @@ class MinehutAPI {
 		}
 	}
 
-	async topServers() {
+	async getServers() {
 		try {
-			const request = await got('https://pocket.minehut.com/network/top_servers');
+			const request = await got(`${API_BASE}/servers`);
 
 			const servers = JSON.parse(request.body);
 
@@ -121,9 +129,29 @@ class MinehutAPI {
 		}
 	}
 
-	async simpleStats() {
+	async getTopServers() {
 		try {
-			const request = await got('https://pocket.minehut.com/network/simple_stats');
+			const request = await got(`${API_BASE}/network/top_servers`);
+
+			const servers = JSON.parse(request.body);
+
+			return servers;
+		} catch (error) {
+			if (error.response.body) {
+				try {
+					throw new Error(JSON.parse(error.response.body).error);
+				} catch (error) {
+					throw new Error(error.response.body);
+				}
+			} else {
+				throw new Error(error);
+			}
+		}
+	}
+
+	async getSimpleStats() {
+		try {
+			const request = await got(`${API_BASE}/network/simple_stats`);
 
 			const stats = JSON.parse(request.body);
 
@@ -141,9 +169,21 @@ class MinehutAPI {
 		}
 	}
 
-	async plugins() {
+	async getPlugins() {
+		let request_url = `${API_BASE}/plugins_public`;
+		let options = {};
+		
+		if (this.session) {
+			request_url = `${API_BASE}/plugins`;
+			options = {
+				headers: {
+					'authorization': this.session.token
+				}
+			};
+		}
+
 		try {
-			const request = await got('https://pocket.minehut.com/plugins');
+			const request = await got(request_url, options);
 
 			const plugins = JSON.parse(request.body);
 
@@ -161,9 +201,9 @@ class MinehutAPI {
 		}
 	}
 
-	async user(id) {
+	async getUser(id) {
 		try {
-			const request = await got('https://pocket.minehut.com/user/' + id, {
+			const request = await got(`${API_BASE}/user/${id}`, {
 				headers: {
 					'authorization': this.session.token
 				}
@@ -185,16 +225,16 @@ class MinehutAPI {
 		}
 	}
 
-	async currentUser() {
-		return await this.user(this.session._id);
+	async getCurrentUser() {
+		return await this.getUser(this.session._id);
 	}
 
-	async userForumData(name) {
+	async getUserForumData(name) {
 		const query = GRAPHQL_USER_QUERY;
 		query.variables.mcName = name;
 
 		try {
-			const request = await got.post('https://api.forums.gg/graphql', {
+			const request = await got.post(`${GRAPHQL_API_BASE}/graphql`, {
 				headers: {
 					'content-type': 'application/json'
 				},

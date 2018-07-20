@@ -1,16 +1,43 @@
+const config = require('./config.json');
 const MinehutAPI = require('./src/minehut');
+//const WarzoneAPI = require('./src/warzone'); // The WarZone stuff seems to be dead?
+
 const Minehut = new MinehutAPI();
+//const Warzone = new WarzoneAPI(); // The WarZone stuff seems to be dead?
 
 (async () => {
 
-	console.log('Grabbing user data for user `Ninventoo`');
-	const user_data = await Minehut.userForumData('Ninventoo');
-	console.log(user_data);
+	/*
+	// The WarZone stuff seems to be dead? Keeping this here incase it comes back
+	console.log('Grabbing Warzone leaderboard...');
+	console.log(await Warzone.leaderboard());
 
-	console.log('******BEGINNING SERVER MANAGMENT******');
+	console.log('Grabbing latest Warzone match info...');
+	console.log(await Warzone.match());
+
+	console.log('Grabbing Warzone user `MatrixTunnel`...');
+	console.log(await Warzone.user('MatrixTunnel'));
+
+	console.log('Grabbing Warzone user `MatrixTunnel` latest match...');
+	console.log(await Warzone.userMatch('MatrixTunnel'));
+	*/
+
+	console.log('Grabbing user data for user `Ninventoo`');
+	console.log(await Minehut.getUserForumData('Ninventoo'));
+
+	console.log('Grabbing server data for PrismBlock (by ID)');
+	console.log(await Minehut.getServer('5b45e51bc8b7b644e9bf7396'));
+
+	console.log('Grabbing server data for PrismBlock by name');
+	console.log(await Minehut.getServer('PrismBlock', true));
+
+	console.log('Grabbing plugins (not logged in)');
+	console.log(await Minehut.getPlugins());
+
+	console.log('******LOGING USER******');
 
 	console.log('Logging into Minehut control panel...');
-	await Minehut.getLoginSession('email', 'password');
+	await Minehut.getLoginSession(config.email, config.password);
 	/*
 	You can also login using:
 	await Minehut.ghostLogin('your_account_token');
@@ -24,14 +51,21 @@ const Minehut = new MinehutAPI();
 	});
 	*/
 
+	console.log('Grabbing plugins (logged in)');
+	console.log(await Minehut.getPlugins());
+
+	console.log('******SETTING UP SERVER CONTEXT******');
+
 	console.log('Grabbing currently logged in user');
-	const user = await Minehut.currentUser();
+	const user = await Minehut.getCurrentUser();
 
 	console.log('Grabbing server ID of first server in list');
 	const server_id = user.servers[0];
 
 	console.log('Grabbing server instance');
 	const server = Minehut.server(server_id); // Returns a new `MinehutServer` instance. Must be a server you own
+
+	console.log('******BEGINNING SERVER MANAGMENT******');
 	
 	/*
 	Minehut servers run on what's called a "service".

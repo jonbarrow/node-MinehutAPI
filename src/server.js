@@ -1,5 +1,7 @@
 const got = require('got');
 
+const API_BASE = 'https://pocket.minehut.com';
+
 class MinehutServer {
 	constructor(id, session) {
 		this.id = id;
@@ -8,7 +10,7 @@ class MinehutServer {
 
 	async startService() {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/start_service', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/start_service`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -34,7 +36,7 @@ class MinehutServer {
 
 	async stopService() {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/destroy_service', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/destroy_service`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -60,7 +62,7 @@ class MinehutServer {
 
 	async start() {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/start', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/start`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -87,7 +89,7 @@ class MinehutServer {
 
 	async stop() {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/shutdown', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/shutdown`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -113,7 +115,7 @@ class MinehutServer {
 
 	async sendCommand(command) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/send_command', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/send_command`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -141,7 +143,7 @@ class MinehutServer {
 
 	async plugins() {
 		try {
-			const request = await got('https://pocket.minehut.com/server/' + this.id + '/plugins', {
+			const request = await got(`${API_BASE}/server/${this.id}/plugins`, {
 				headers: {
 					'authorization': this.session.token
 				}
@@ -165,7 +167,7 @@ class MinehutServer {
 
 	async status() {
 		try {
-			const request = await got('https://pocket.minehut.com/server/' + this.id + '/status', {
+			const request = await got(`${API_BASE}/server/${this.id}/status`, {
 				headers: {
 					'authorization': this.session.token
 				}
@@ -189,7 +191,7 @@ class MinehutServer {
 
 	async data() {
 		try {
-			const request = await got('https://pocket.minehut.com/server/' + this.id + '/server_data', {
+			const request = await got(`${API_BASE}/server/${this.id}/server_data`, {
 				headers: {
 					'authorization': this.session.token
 				}
@@ -213,7 +215,7 @@ class MinehutServer {
 
 	async credits() {
 		try {
-			const request = await got('https://pocket.minehut.com/credits/server/' + this.id, {
+			const request = await got(`${API_BASE}/credits/server/${this.id}`, {
 				headers: {
 					'authorization': this.session.token
 				}
@@ -237,7 +239,7 @@ class MinehutServer {
 
 	async listFiles(path) {
 		try {
-			const request = await got('https://pocket.minehut.com/file/' + this.id + '/list/' + path, {
+			const request = await got(`${API_BASE}/file/${this.id}/list/${path}`, {
 				headers: {
 					'authorization': this.session.token
 				}
@@ -261,7 +263,7 @@ class MinehutServer {
 
 	async readFile(path) {
 		try {
-			const request = await got('https://pocket.minehut.com/file/' + this.id + '/read/' + path, {
+			const request = await got(`${API_BASE}/file/${this.id}/read/${path}`, {
 				headers: {
 					'authorization': this.session.token
 				}
@@ -285,7 +287,7 @@ class MinehutServer {
 
 	async editFile(path, content) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/file/' + this.id + '/edit/' + path, {
+			const request = await got.post(`${API_BASE}/file/${this.id}/edit/${path}`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -313,7 +315,7 @@ class MinehutServer {
 
 	async deleteFile(path) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/file/' + this.id + '/delete/' + path, {
+			const request = await got.post(`${API_BASE}/file/${this.id}/delete/${path}`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -339,7 +341,7 @@ class MinehutServer {
 
 	async changeName(name) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/change_name', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/change_name`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -367,7 +369,7 @@ class MinehutServer {
 
 	async visibility(bool) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/visibility', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/visibility`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -395,7 +397,7 @@ class MinehutServer {
 
 	async changeMOTD(motd) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/change_motd', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/change_motd`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -423,7 +425,7 @@ class MinehutServer {
 
 	async save() {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/save', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/save`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -450,7 +452,7 @@ class MinehutServer {
 	async changeProperties(props) {
 		props.forEach(async property => {
 			try {
-				const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/edit_server_properties', {
+				const request = await got.post(`${API_BASE}/server/${this.id}/edit_server_properties`, {
 					headers: {
 						'content-type': 'application/json',
 						'authorization': this.session.token
@@ -477,7 +479,7 @@ class MinehutServer {
 
 	async resetWorld() {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/reset_wolrd', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/reset_wolrd`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -503,7 +505,7 @@ class MinehutServer {
 
 	async resetPlugin(id) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/remove_plugin_data', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/remove_plugin_data`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -531,7 +533,7 @@ class MinehutServer {
 
 	async installPlugin(id) {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/install_plugin', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/install_plugin`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -559,7 +561,7 @@ class MinehutServer {
 
 	async repair() {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/repair_files', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/repair_files`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
@@ -585,7 +587,7 @@ class MinehutServer {
 
 	async resetAll() {
 		try {
-			const request = await got.post('https://pocket.minehut.com/server/' + this.id + '/reset_all', {
+			const request = await got.post(`${API_BASE}/server/${this.id}/reset_all`, {
 				headers: {
 					'content-type': 'application/json',
 					'authorization': this.session.token
