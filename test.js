@@ -51,6 +51,10 @@ const Minehut = new MinehutAPI();
 	});
 	*/
 
+	// BE WARNED. YOU CANNOT DELETE SERVERS.
+	console.log('******CREATING SERVER******');
+	console.log(await Minehut.createServer('apitest'));
+
 	console.log('Grabbing plugins (logged in)');
 	console.log(await Minehut.getPlugins());
 

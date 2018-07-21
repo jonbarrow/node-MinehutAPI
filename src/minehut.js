@@ -84,6 +84,47 @@ class MinehutAPI {
 		return new MinehutServer(id, this.session);
 	}
 
+	async createServer(name, platform='java') {
+		if (platform !== 'java') {
+			// On the official web client theres a drop down here, assuming future types eventually? Getting prepared for that
+			throw new Error(`Invalid server type ${platform}. Must be java`);
+		}
+
+		try {
+			let request = await got.post(`${API_BASE}/servers/create`, {
+				headers: {
+					accept: 'application/json',
+					origin: 'https://minehut.com',
+					'Content-Type': 'application/json',
+					authorization: this.session.token
+				},
+				body: JSON.stringify({
+					name,
+					platform
+				})
+			});
+
+			const server = JSON.parse(request.body);
+
+			return server;
+		} catch (error) {
+			// Thanks Minehut for not following HTTP standards and throwing 400 errors even with perfectly formatted requests
+			if (error.statusCode && error.statusCode == 400 && error.response && error.response.body) {
+				return JSON.parse(error.response.body);
+			}
+
+			if (error.response.body) {
+				try {
+					throw new Error(JSON.parse(error.response.body).error);
+				} catch (error) {
+					throw new Error(error.response.body);
+				}
+			} else {
+				throw new Error(error);
+			}
+		}
+	}
+
 	async getServer(id, byName) {
 		let request_url = `${API_BASE}/server/${id}`
 		if (byName) {
