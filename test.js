@@ -80,7 +80,7 @@ const Minehut = new MinehutAPI();
 
 	async function verifyService() {
 		console.log('Checking status');
-		let status = await server.status();
+		const status = await server.status();
 
 		if (!status.status.service_online) {
 			server.startService();
@@ -90,7 +90,7 @@ const Minehut = new MinehutAPI();
 			This is actually how the official web client handles this, so it's safe
 			*/
 			const service_check_loop = setInterval(async () => {
-				status = await server.status();
+				const status = await server.status();
 				if (status.status.service_online) {
 					clearInterval(service_check_loop);
 					startServer();
@@ -111,7 +111,7 @@ const Minehut = new MinehutAPI();
 		Just like with services, we must keep pinging the server status to see if it's online
 		*/
 		const server_check_loop = setInterval(async () => {
-			status = await server.status();
+			const status = await server.status();
 
 			// Servers services are able to go to sleep during start up (I think this is a bug with Minehut?)
 			// To get around this, we must also check that the service is online when trying to start the server

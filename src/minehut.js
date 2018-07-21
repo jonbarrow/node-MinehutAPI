@@ -12,7 +12,7 @@ const GRAPHQL_USER_QUERY = {
 		mcName: null
 	},
 	query: 'query user($name: String, $mcName: String, $community: ID!) {\n  user(name: $name, mcName: $mcName) {\n    _id\n    name\n    gravatar\n    minecraft {\n      _id\n      mcName\n      mcUuid\n      __typename\n    }\n    roles(community: $community) {\n      _id\n      tagVisible\n      tagName\n      tagBackgroundColor\n      tagTextColor\n      permissions\n      __typename\n    }\n    isBanned(community: $community)\n    about\n    __typename\n  }\n}\n'
-}
+};
 
 
 class MinehutAPI {
@@ -91,7 +91,7 @@ class MinehutAPI {
 		}
 
 		try {
-			let request = await got.post(`${API_BASE}/servers/create`, {
+			const request = await got.post(`${API_BASE}/servers/create`, {
 				headers: {
 					accept: 'application/json',
 					origin: 'https://minehut.com',
@@ -126,9 +126,9 @@ class MinehutAPI {
 	}
 
 	async getServer(id, byName) {
-		let request_url = `${API_BASE}/server/${id}`
+		let request_url = `${API_BASE}/server/${id}`;
 		if (byName) {
-			request_url = `${request_url}?byName=true`
+			request_url = `${request_url}?byName=true`;
 		}
 
 		try {
