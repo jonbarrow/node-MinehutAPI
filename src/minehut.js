@@ -1,7 +1,7 @@
 const got = require('got');
 const MinehutServer = require('./server');
 
-const API_BASE = 'https://pocket.minehut.com';
+const API_BASE = 'https://api.minehut.com';
 const GRAPHQL_API_BASE = 'https://api.forums.gg';
 
 const GRAPHQL_COMMUNITY = '5ac29432e0b76e66674e0a59';
