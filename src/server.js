@@ -1,6 +1,6 @@
 const got = require('got');
 
-const API_BASE = 'https://pocket.minehut.com';
+const API_BASE = 'https://api.minehut.com';
 
 class MinehutServer {
 	constructor(id, session) {
