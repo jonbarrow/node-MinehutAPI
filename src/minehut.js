@@ -33,8 +33,6 @@ class MinehutAPI {
 			});
 			
 			const session = JSON.parse(request.body);
-			console.log("Session data:")
-			console.log(session)
 			this.session = session;
 			return session;
 		} catch (error) {
@@ -213,7 +211,6 @@ class MinehutAPI {
 	}
 
 	async getPlugins() {
-		console.log(this.session.token)
 		let request_url = `${API_BASE}/plugins_public`;
 		let options = {};
 		
@@ -259,7 +256,6 @@ class MinehutAPI {
 
 			return user;
 		} catch (error) {
-			console.log(error.response.body)
 			if (error.response.body) {
 				try {
 					throw new Error(JSON.parse(error.response.body).error);
