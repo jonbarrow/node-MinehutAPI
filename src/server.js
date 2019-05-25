@@ -13,7 +13,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/start_service`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
@@ -39,7 +40,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/destroy_service`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
@@ -65,7 +67,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/start`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
@@ -92,7 +95,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/shutdown`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
@@ -118,7 +122,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/send_command`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({
 					command: command ? command : 'say test'
@@ -145,7 +150,8 @@ class MinehutServer {
 		try {
 			const request = await got(`${API_BASE}/server/${this.id}/plugins`, {
 				headers: {
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				}
 			});
 
@@ -169,7 +175,8 @@ class MinehutServer {
 		try {
 			const request = await got(`${API_BASE}/server/${this.id}/status`, {
 				headers: {
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				}
 			});
 
@@ -193,7 +200,8 @@ class MinehutServer {
 		try {
 			const request = await got(`${API_BASE}/server/${this.id}/server_data`, {
 				headers: {
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				}
 			});
 
@@ -217,7 +225,8 @@ class MinehutServer {
 		try {
 			const request = await got(`${API_BASE}/credits/server/${this.id}`, {
 				headers: {
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				}
 			});
 
@@ -241,7 +250,8 @@ class MinehutServer {
 		try {
 			const request = await got(`${API_BASE}/file/${this.id}/list/${path}`, {
 				headers: {
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				}
 			});
 
@@ -265,7 +275,8 @@ class MinehutServer {
 		try {
 			const request = await got(`${API_BASE}/file/${this.id}/read/${path}`, {
 				headers: {
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				}
 			});
 
@@ -290,7 +301,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/file/${this.id}/edit/${path}`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({
 					content: content
@@ -318,7 +330,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/file/${this.id}/delete/${path}`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
@@ -344,7 +357,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/change_name`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({
 					name: name
@@ -372,7 +386,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/visibility`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({
 					visibility: bool
@@ -400,7 +415,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/change_motd`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({
 					motd: motd
@@ -428,7 +444,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/save`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
@@ -455,7 +472,8 @@ class MinehutServer {
 				const request = await got.post(`${API_BASE}/server/${this.id}/edit_server_properties`, {
 					headers: {
 						'content-type': 'application/json',
-						'authorization': this.session.token
+						'authorization': this.session.token,
+						"x-session-id": this.session.sessionId
 					},
 					body: JSON.stringify(property)
 				});
@@ -482,7 +500,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/reset_wolrd`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
@@ -508,7 +527,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/remove_plugin_data`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({
 					plugin: id
@@ -536,7 +556,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/install_plugin`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({
 					plugin: id
@@ -564,7 +585,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/repair_files`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
@@ -590,7 +612,8 @@ class MinehutServer {
 			const request = await got.post(`${API_BASE}/server/${this.id}/reset_all`, {
 				headers: {
 					'content-type': 'application/json',
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({})
 			});
