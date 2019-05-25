@@ -33,7 +33,8 @@ class MinehutAPI {
 			});
 			
 			const session = JSON.parse(request.body);
-
+			console.log("Session data:")
+			console.log(session)
 			this.session = session;
 			return session;
 		} catch (error) {
@@ -96,7 +97,8 @@ class MinehutAPI {
 					accept: 'application/json',
 					origin: 'https://minehut.com',
 					'Content-Type': 'application/json',
-					authorization: this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				},
 				body: JSON.stringify({
 					name,
@@ -211,6 +213,7 @@ class MinehutAPI {
 	}
 
 	async getPlugins() {
+		console.log(this.session.token)
 		let request_url = `${API_BASE}/plugins_public`;
 		let options = {};
 		
@@ -218,7 +221,8 @@ class MinehutAPI {
 			request_url = `${API_BASE}/plugins`;
 			options = {
 				headers: {
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				}
 			};
 		}
@@ -246,7 +250,8 @@ class MinehutAPI {
 		try {
 			const request = await got(`${API_BASE}/user/${id}`, {
 				headers: {
-					'authorization': this.session.token
+					'authorization': this.session.token,
+					"x-session-id": this.session.sessionId
 				}
 			});
 
@@ -254,6 +259,7 @@ class MinehutAPI {
 
 			return user;
 		} catch (error) {
+			console.log(error.response.body)
 			if (error.response.body) {
 				try {
 					throw new Error(JSON.parse(error.response.body).error);
