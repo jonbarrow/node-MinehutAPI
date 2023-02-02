@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^5.2.0",
-    "got": "^8.3.0"
+    "got": "^12.5.3"
   }
 }
